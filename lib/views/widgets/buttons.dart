@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:streamer/utils/colors.dart';
 import 'package:streamer/utils/constants.dart';
 
+//reusable floatinf action button
 class FloatingButton extends StatelessWidget {
   final Function() onPress;
   final IconData icons;
@@ -20,6 +21,7 @@ class FloatingButton extends StatelessWidget {
   }
 }
 
+//reusable confirm button
 class ConfirmButton extends StatelessWidget {
   final Function() onPress;
 
@@ -41,6 +43,7 @@ class ConfirmButton extends StatelessWidget {
   }
 }
 
+//reusable cancel button
 class CancelButton extends StatelessWidget {
   const CancelButton({Key? key}) : super(key: key);
 
@@ -62,6 +65,7 @@ class CancelButton extends StatelessWidget {
   }
 }
 
+//custom login button
 class LogInButton extends StatefulWidget {
   final Function onTap;
   final Function onAnimationEnd;

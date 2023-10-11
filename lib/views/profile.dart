@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:streamer/utils/colors.dart';
 import 'package:streamer/views/widgets/scaffold.dart';
 
 ///view user profile
-
-
 class Profile extends StatefulWidget {
   const Profile({super.key});
 
@@ -19,7 +18,10 @@ class _ProfileState extends State<Profile> {
       body: Center(
         child: Text('Profile'),
       ),
-      footer: Container(),
+      footer: Container(
+        height: 10,
+        color: red,
+      ),
     );
   }
 }

@@ -15,11 +15,7 @@ class CustomScaffold extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(title),
-        backgroundColor: white,
-      ),
+     
       backgroundColor: white,
       body: body,
       bottomNavigationBar: footer,

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:streamer/utils/colors.dart';
 
+//password text field
 class PasswordField extends StatefulWidget {
   final TextEditingController passwordController;
   final bool fadePassword;
@@ -136,6 +137,7 @@ class _PasswordFieldState extends State<PasswordField> {
   }
 }
 
+//email text field
 class EmailField extends StatefulWidget {
   final bool fadeEmail;
   final TextEditingController emailController;

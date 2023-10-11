@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+//view artist list screen
 class ArtistListScreen extends StatelessWidget {
   const ArtistListScreen({super.key});
 
@@ -9,7 +10,7 @@ class ArtistListScreen extends StatelessWidget {
       return ListTile(
         leading: Icon(Icons.music_note_outlined),
         title: Text('Artist Name'),
-        subtitle: Text('No. ' + (i + 1).toString()),
+        subtitle: Text('No. ${i + 1}'),
       );
     });
   }

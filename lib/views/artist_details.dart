@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:streamer/utils/colors.dart';
 import 'package:streamer/views/widgets/scaffold.dart';
 
+//view artist detail
 class ArtistDetail extends StatelessWidget {
   const ArtistDetail({super.key});
 
@@ -11,7 +13,10 @@ class ArtistDetail extends StatelessWidget {
       body: Center(
         child: Text('Artist Detail'),
       ),
-      footer: Container(),
+      footer: Container(
+        height: 10,
+        color: red,
+      ),
     );
   }
 }

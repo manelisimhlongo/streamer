@@ -8,6 +8,8 @@ import 'package:streamer/views/profile.dart';
 import 'package:streamer/views/widgets/footer.dart';
 import 'package:streamer/views/widgets/menu.dart';
 
+//TODO check if genre is selcted and call the pop if not
+
 class MainScreen extends StatefulWidget {
   final String page;
 
@@ -23,6 +25,7 @@ class _MainScreenState extends State<MainScreen> {
   @override
   initState() {
     viewDecider();
+    
     // checkFirstLogin();
     super.initState();
   }
@@ -80,6 +83,7 @@ class _MainScreenState extends State<MainScreen> {
       Expanded(
         flex: 5,
         child: Scaffold(
+         
           body: viewController(),
           bottomNavigationBar: Footer(),
         ),

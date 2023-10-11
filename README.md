@@ -1,16 +1,11 @@
 # streamer
 
-A new Flutter project.
+Spotify API Streamer App!
 
-## Getting Started
+This project calls on the spotify API and stores the genre & artist information on the local sqflite database
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- Spotify API - initially will call a list of genres that are available in SA. Thereafter once the user has selected their preference and entered their name it will then get the top 100 artists in that specific genre.
+- Local Database - using sqflite package in flutter we able to locally store the data we retrieve from the API and call it back into the app via the local database call. 
+- Provider
+- .env for secure storage of key values

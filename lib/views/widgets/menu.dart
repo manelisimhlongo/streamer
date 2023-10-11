@@ -29,13 +29,11 @@ class _SideMenuState extends State<SideMenu> {
               ),
               onTap: () {
                 //TODO change this to pop and change view
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        allowSnapshotting: false,
-                        builder: (context) => MainScreen(
-                              page: pages[i],
-                            )));
+                Navigator.pop(context);
+
+                setState(() {
+                  MainScreen(page: pages[i]);
+                });
               },
             ),
         ],
