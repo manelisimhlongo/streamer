@@ -1,21 +1,30 @@
 import 'package:flutter/material.dart';
-import 'package:streamer/utils/colors.dart';
-import 'package:streamer/views/widgets/scaffold.dart';
 
 //view artist detail
-class ArtistDetail extends StatelessWidget {
-  const ArtistDetail({super.key});
+class ArtistDetail extends StatefulWidget {
+  final String url;
+  final String name;
+  final String artist_id;
+  const ArtistDetail(
+      {super.key,
+      required this.url,
+      required this.name,
+      required this.artist_id});
 
   @override
+  State<ArtistDetail> createState() => _ArtistDetailState();
+}
+
+class _ArtistDetailState extends State<ArtistDetail> {
+  @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      title: 'Artist Detail',
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.name),
+        centerTitle: true,
+      ),
       body: Center(
         child: Text('Artist Detail'),
-      ),
-      footer: Container(
-        height: 10,
-        color: red,
       ),
     );
   }

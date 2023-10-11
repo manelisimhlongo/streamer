@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:streamer/services/auth.dart';
 import 'package:streamer/utils/colors.dart';
 import 'package:streamer/utils/constants.dart';
-import 'package:streamer/utils/view_controller.dart';
+import 'package:streamer/views/home.dart';
 import 'package:streamer/views/widgets/buttons.dart';
 import 'package:streamer/views/widgets/text_fields.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+
+  const LoginScreen({super.key, });
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -83,7 +84,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 .signInWithEmailAndPassword(
                     emailController.text, passwordController.text)
                 .then((value) {
-           
               if (value.runtimeType == FirebaseAuthException) {
                 Fluttertoast.showToast(msg: value.code);
               }
@@ -111,48 +111,48 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       backgroundColor: white,
       resizeToAvoidBottomInset: true,
-      body: SafeArea(
-        bottom: false,
-        child: loadingBallAppear
-            ? MainScreen(
-                page: 'Home',
-              )
-            : Container(
-                color: blueGrey.withOpacity(.5),
-                child: Center(
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 50.0),
-                    child: SingleChildScrollView(
-                      child: SizedBox(
-                        width: 450,
-                        child: Material(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(22.0)),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              SizedBox(height: 48),
-                              Center(
-                                child: Icon(Icons.flutter_dash_outlined,
-                                    size: 80, color: black),
-                              ),
-                              welcomeText(),
-                              SizedBox(height: 24),
-                              Padding(
-                                padding: const EdgeInsets.all(16.0),
+      body: FirebaseAuth.instance.currentUser?.uid != null
+          ? Home( )
+          : SafeArea(
+              bottom: false,
+              child: loadingBallAppear
+                  ? Home()
+                  : Container(
+                      color: blueGrey.withOpacity(.5),
+                      child: Center(
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 50.0),
+                          child: SingleChildScrollView(
+                            child: SizedBox(
+                              width: 450,
+                              child: Material(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(22.0)),
                                 child: Column(
-                                  children: [textFields(), buttons()],
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    SizedBox(height: 48),
+                                    Center(
+                                      child: Icon(Icons.flutter_dash_outlined,
+                                          size: 80, color: black),
+                                    ),
+                                    welcomeText(),
+                                    SizedBox(height: 24),
+                                    Padding(
+                                      padding: const EdgeInsets.all(16.0),
+                                      child: Column(
+                                        children: [textFields(), buttons()],
+                                      ),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
+                            ),
                           ),
                         ),
                       ),
                     ),
-                  ),
-                ),
-              ),
-      ),
+            ),
     );
   }
 }

@@ -42,13 +42,14 @@ class SpotifyApiClient {
 
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
-      List<String> genreStrings = List<String>.from(data['genres']);
+      List genreStrings = List<String>.from(data['genres']);
 
       //inserts the data into the genre database
       for (int i = 0; i < genreStrings.length; i++) {
         Genres genre = Genres(genre: genreStrings[i]);
         GenresDatabase dbSet = GenresDatabase();
         await dbSet.insertGenre(genre);
+     
       }
       return genreStrings;
     } else {
@@ -57,12 +58,12 @@ class SpotifyApiClient {
   }
 
   //TODO get the proper API call here
-  Future getTopArtists() async {
+  Future getTopArtists(genreId) async {
     final accessToken = await getAccessToken();
 
     final response = await http.get(
       Uri.parse(
-          'https://api.spotify.com/v1/recommendations/available-genre-seeds'),
+          'https://api.spotify.com/v1/browse/categories/$genreId/playlists'),
       headers: {
         'Authorization': 'Bearer $accessToken',
       },

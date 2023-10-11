@@ -279,3 +279,32 @@ class _EmailFieldState extends State<EmailField>
         .hasMatch(email);
   }
 }
+
+class CustomTextField extends StatefulWidget {
+  final TextEditingController textController;
+  final String hint;
+  const CustomTextField(
+      {super.key, required this.textController, required this.hint});
+
+  @override
+  State<CustomTextField> createState() => _CustomTextFieldState();
+}
+
+class _CustomTextFieldState extends State<CustomTextField> {
+  late TextEditingController textController;
+
+  @override
+  void initState() {
+    textController = widget.textController;
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: textController,
+      decoration: InputDecoration(hintText: widget.hint),
+      keyboardType: TextInputType.emailAddress,
+    );
+  }
+}

@@ -21,20 +21,33 @@ void main() async {
     clientSecret: '',
   );
 
-  await spotifyClient.getGenres();
+ //await spotifyClient.getGenres();
 
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => UserProvider(
-        User(userId: 'user123', name: 'John Doe', preferredGenre: 'Pop'),
-      ),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (context) => UserProvider(
+            User(
+              userId: '',
+              name: '',
+              preferredGenre: '',
+            ),
+          ),
+        ),
+        ChangeNotifierProvider(create: (context) => FirstLaunchProvider(
+          InitialLaunch(launch: '')
+        )),
+      ],
       child: MyApp(),
     ),
   );
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,13 +58,18 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: blueGrey),
         useMaterial3: true,
       ),
-      home: MyHomePage(title: app_title),
+      home: MyHomePage(
+        title: app_title,
+      ),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+  const MyHomePage({
+    super.key,
+    required this.title,
+  });
 
   final String title;
 

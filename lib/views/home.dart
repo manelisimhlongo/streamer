@@ -1,66 +1,46 @@
-
 import 'package:flutter/material.dart';
-import 'package:streamer/utils/colors.dart';
-import 'package:streamer/views/widgets/buttons.dart';
-import 'package:streamer/views/widgets/scaffold.dart';
-import 'package:streamer/views/widgets/welcome_alert.dart';
+import 'package:provider/provider.dart';
+import 'package:streamer/services/provider_service.dart';
+import 'package:streamer/utils/constants.dart';
+import 'package:streamer/views/artist_list.dart';
+import 'package:streamer/views/first_launch.dart';
 
 class Home extends StatefulWidget {
-  const Home({super.key});
+  const Home({
+    super.key,
+  });
 
   @override
   State<Home> createState() => _HomeState();
 }
 
 class _HomeState extends State<Home> {
-  dialog(context) {
-    return showDialog(
-        context: (context),
-        builder: (context) {
-          return AlertDialog(
-            title: Center(child: Text('Welcome')),
-            content: SingleChildScrollView(
-              child: Column(
-                children: [
-                  Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          'Select Genre:',
-                          style: TextStyle(fontSize: 18),
-                        ),
-                        
-                        SizedBox(height: 10),
-                        GenreDropdownWidget(), 
-                        SizedBox(height: 20),
-                        /*Text(
-                'Selected Genre: ${selectedGenre ?? 'None'}',
-                style: TextStyle(fontSize: 16),
-              ),*/
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        });
-  }
+  List<String> genres = [];
+  String? selectedGenre;
 
   @override
   Widget build(BuildContext context) {
-    return CustomScaffold(
-      title: 'Home',
-      body: Center(
-        child: ConfirmButton(onPress: () {
-          dialog(context);
-        }),
-      ),
-      footer: Container(
-        height: 10,
-        color: red,
-      ),
-    );
+    FirstLaunchProvider launchProvider =
+        Provider.of<FirstLaunchProvider>(context);
+  
+
+        
+       
+    return Scaffold(
+        appBar: AppBar(
+          title: Center(child: Text(app_title)),
+        ),
+        body: Stack(
+          children: [
+            launchProvider.thisLaunch.launch == '' ? FirstLaunch() : Container(),
+            launchProvider.thisLaunch.launch == ''
+                ? Container()
+                : ArtistListScreen(
+                    url: '',
+                    name: '',
+                    artist_id: '',
+                  ),
+          ],
+        ));
   }
 }

@@ -1,6 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:path/path.dart';
 
+// Genre class
 class Genres {
   final String genre;
   Genres({required this.genre});
@@ -24,11 +25,11 @@ class Genres {
   }
 }
 
+// Genre database class
 class GenresDatabase {
   late Database genreDB;
 
   Future open() async {
-  
     genreDB = await openDatabase(
       join(await getDatabasesPath(), 'genres.db'),
       version: 1,
@@ -40,7 +41,7 @@ class GenresDatabase {
     );
   }
 
-  Future insertGenre(Genres genre) async {
+  Future<void> insertGenre(Genres genre) async {
     await open();
     await genreDB.insert(
       'genres',
@@ -49,7 +50,7 @@ class GenresDatabase {
     );
   }
 
-  Future getGenres() async {
+  Future<List<Genres>> getGenres() async {
     await open();
     final List<Map<String, dynamic>> maps = await genreDB.query('genres');
     return List.generate(maps.length, (i) {

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:streamer/services/genre_database.dart';
+import 'package:streamer/services/provider_service.dart';
 import 'package:streamer/utils/colors.dart';
 import 'package:streamer/utils/constants.dart';
+import 'package:streamer/views/widgets/loader.dart';
 
 //reusable floatinf action button
 class FloatingButton extends StatelessWidget {
@@ -93,7 +97,7 @@ class _LogInButtonState extends State<LogInButton> {
         onPressed: () {
           widget.onTap();
         },
-         style: ElevatedButton.styleFrom(
+        style: ElevatedButton.styleFrom(
           backgroundColor: blueGrey.withOpacity(.1),
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(10))),
@@ -121,5 +125,65 @@ class _LogInButtonState extends State<LogInButton> {
         ),
       ),
     );
+  }
+}
+
+//cutom drop down button
+class GenreDropdownMenu extends StatefulWidget {
+  const GenreDropdownMenu({super.key});
+
+  @override
+  State<GenreDropdownMenu> createState() => _GenreDropdownMenuState();
+}
+
+class _GenreDropdownMenuState extends State<GenreDropdownMenu> {
+  var selectedGenre;
+  change(val) {
+    setState(() {
+      selectedGenre = val;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return StatefulBuilder(builder: (context, setState) {
+      return FutureBuilder<dynamic>(
+        future: GenresDatabase().getGenres(),
+        builder: (context, snapshot) {
+          UserProvider userProvider = Provider.of<UserProvider>(context);
+          if (snapshot.hasData) {
+            final List<Genres> genres = snapshot.data;
+
+            return DropdownButton<String>(
+              hint: Text('Choose A Genre',
+                  style: TextStyle(color: black, fontSize: 14)),
+              underline: Container(),
+              items: genres
+                  .map((Genres genre) => DropdownMenuItem(
+                        onTap: () {
+                          change(genre.genre);
+                        },
+                        value: genre.genre,
+                        child: Text(
+                          genre.genre,
+                          style: TextStyle(color: black),
+                        ),
+                      ))
+                  .toList(),
+              value:
+                  selectedGenre, //userProvider.user.preferredGenre.toString(),
+              onChanged: (String? newValue) {
+                setState(() {
+                  userProvider.updatePreferredGenre(newValue!);
+                  selectedGenre = newValue;
+                });
+              },
+            );
+          } else {
+            return Loader();
+          }
+        },
+      );
+    });
   }
 }
