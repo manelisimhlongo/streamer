@@ -28,6 +28,7 @@ class Genres {
 // Genre database class
 class GenresDatabase {
   late Database genreDB;
+  static const String tableName = 'genres';
 
   Future open() async {
     genreDB = await openDatabase(
@@ -35,7 +36,7 @@ class GenresDatabase {
       version: 1,
       onCreate: (Database db, int version) {
         db.execute(
-          'CREATE TABLE genres(id INTEGER PRIMARY KEY, genre TEXT)',
+          'CREATE TABLE $tableName(genre TEXT PRIMARY KEY )',
         );
       },
     );
@@ -44,9 +45,9 @@ class GenresDatabase {
   Future<void> insertGenre(Genres genre) async {
     await open();
     await genreDB.insert(
-      'genres',
+      tableName,
       genre.toMap(),
-      conflictAlgorithm: ConflictAlgorithm.replace,
+      conflictAlgorithm: ConflictAlgorithm.ignore,
     );
   }
 
@@ -57,4 +58,6 @@ class GenresDatabase {
       return Genres.fromMap(maps[i]);
     });
   }
+
+ 
 }

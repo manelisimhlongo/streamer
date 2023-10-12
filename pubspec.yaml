@@ -43,7 +43,8 @@ dependencies:
   flutter_dotenv:
   fluttertoast:
   provider:
-  path: ^1.8.3
+  path: 
+  cached_network_image: 
 
 dev_dependencies:
   flutter_test:

@@ -17,11 +17,11 @@ void main() async {
   );
 
   final spotifyClient = SpotifyApiClient(
-    clientId: '',
-    clientSecret: '',
+    clientId: '7a9c71d5461e498d8e1e675a92b1793b',
+    clientSecret: '4c132e62e9ca4394adca754358c08f34',
   );
 
- //await spotifyClient.getGenres();
+ await spotifyClient.getGenres();
 
   runApp(
     MultiProvider(
