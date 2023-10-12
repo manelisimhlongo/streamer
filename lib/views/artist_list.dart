@@ -56,6 +56,18 @@ class _ArtistListScreenState extends State<ArtistListScreen> {
                                       url: artistsList[i].url,
                                       name: artistsList[i].name,
                                       artist_id: artistsList[i].id,
+                                      image: CachedNetworkImage(
+                                        fit: BoxFit.cover,
+                                        imageUrl: artistsList[i].image,
+                                        progressIndicatorBuilder: (context, url,
+                                                downloadProgress) =>
+                                            CircularProgressIndicator(
+                                                value:
+                                                    downloadProgress.progress),
+                                        errorWidget: (context, url, error) =>
+                                            Icon(Icons.error),
+                                      ),
+                                      followers: artistsList[i].followers,
                                     ))));
                       });
                 });

@@ -91,4 +91,36 @@ class SpotifyApiClient {
       throw Exception('Failed to fetch top artists');
     }
   }
+
+  Future getTopTracks(id) async {
+    final accessToken = await getAccessToken();
+
+    final response = await http.get(
+      Uri.parse('$spotify_url/artists/$id/top-tracks?market=SA'),
+      headers: {
+        'Authorization': 'Bearer $accessToken',
+      },
+    );
+    ;
+
+    if (response.statusCode == 200) {
+      Map<String, dynamic> body = json.decode(response.body);
+      List songs = body['tracks'];
+
+      SongDatabase dbSet = SongDatabase();
+
+      for (int i = 0; i < songs.length; i++) {
+        var val = Songs(
+            song_id: songs[i]['id'],
+            song_name: songs[i]['album']['name'],
+            song_img: songs[i]['album']['images'][0]['url'],
+            song_album: songs[i]['album']['album_type']);
+        await dbSet.insertSong(val);
+      }
+
+      return songs;
+    } else {
+      throw Exception('Failed to fetch top tracks by the artist');
+    }
+  }
 }
