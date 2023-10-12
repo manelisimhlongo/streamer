@@ -2,7 +2,11 @@
     <application
         android:label="streamer"
         android:name="${applicationName}"
+<<<<<<< HEAD
         android:icon="@mipmap/ic_launcher">
+=======
+        android:icon="@mipmap/launcher_icon">
+>>>>>>> e8a4c5c2d54ea6b21ce09d52abefb1606c7c5d24
         <activity
             android:name=".MainActivity"
             android:exported="true"
