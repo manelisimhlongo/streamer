@@ -7,7 +7,7 @@ import 'package:streamer/utils/colors.dart';
 import 'package:streamer/utils/constants.dart';
 import 'package:streamer/views/login.dart';
 import 'firebase_options.dart';
-//TODO include env
+//TODO include env -- not working properly. app crashes on implementation. 
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

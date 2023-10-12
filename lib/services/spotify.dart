@@ -1,5 +1,6 @@
 //spotify api
 
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:streamer/services/artist_database.dart';
 import 'dart:convert';
@@ -53,7 +54,7 @@ class SpotifyApiClient {
       }
       return genreStrings;
     } else {
-      throw Exception('Failed to fetch top artists');
+      throw Fluttertoast.showToast(msg:'Failed to fetch top artists');
     }
   }
 
@@ -62,7 +63,7 @@ class SpotifyApiClient {
 
     final response = await http.get(
       Uri.parse(
-          '$spotify_url/search?q=remaster%2520track%3ADoxy%2520genre%3A$genreId&type=artist&limit=50&offset=100'),
+          '$spotify_url/search?q=remaster%2520track%3ADoxy%2520genre%3A$genreId&type=artist&limit=50&offset=101'),
       headers: {
         'Authorization': 'Bearer $accessToken',
       },
@@ -88,7 +89,7 @@ class SpotifyApiClient {
 
       return artists;
     } else {
-      throw Exception('Failed to fetch top artists');
+      throw Fluttertoast.showToast(msg: 'Failed to fetch top artists');
     }
   }
 
@@ -101,26 +102,26 @@ class SpotifyApiClient {
         'Authorization': 'Bearer $accessToken',
       },
     );
-    ;
+    
 
     if (response.statusCode == 200) {
       Map<String, dynamic> body = json.decode(response.body);
       List songs = body['tracks'];
 
-      SongDatabase dbSet = SongDatabase();
-
-      for (int i = 0; i < songs.length; i++) {
+     /* for (int i = 0; i < songs.length; i++) {
+        SongDatabase dbSet = SongDatabase();
         var val = Songs(
-            song_id: songs[i]['id'],
-            song_name: songs[i]['album']['name'],
-            song_img: songs[i]['album']['images'][0]['url'],
-            song_album: songs[i]['album']['album_type']);
+            id: songs[i]['id'],
+            name: songs[i]['album']['name'],
+            image: songs[i]['album']['images'][0]['url'],
+            album: songs[i]['album']['album_type']);
         await dbSet.insertSong(val);
-      }
+      }*/
 
       return songs;
     } else {
-      throw Exception('Failed to fetch top tracks by the artist');
+      throw Fluttertoast.showToast(
+          msg: 'Failed to fetch top tracks by the artist');
     }
   }
 }

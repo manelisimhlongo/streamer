@@ -61,73 +61,7 @@ class ArtistDatabase {
   Future<List<Artists>> getArtists() async {
     await open();
     final List<Map<String, dynamic>> maps = await artistDB.query(
-      'artists',
-    );
-
-    return List<Artists>.generate(maps.length, (i) {
-      return Artists.fromMap(maps[i]);
-    });
-  }
-}
-
-class Songs {
-  final String song_id;
-  final String song_name;
-  final String song_img;
-  final String song_album;
-
-  Songs({
-    required this.song_id,
-    required this.song_name,
-    required this.song_img,
-    required this.song_album,
-  });
-
-  factory Songs.fromMap(Map<String, dynamic> map) {
-    return Songs(
-      song_id: map['song_id'],
-      song_name: map['song_name'],
-      song_img: map['song_img'],
-      song_album: map['song_album'],
-    );
-  }
-
-  Map<String, dynamic> toMap() {
-    return {
-      'song_id': song_id,
-      'song_name': song_name,
-      'song_img': song_img,
-      'song_album': song_album,
-    };
-  }
-}
-
-class SongDatabase {
-  late Database songDB;
-  static const String tableName = 'songs';
-
-  Future open() async {
-    songDB = await openDatabase(
-      join(await getDatabasesPath(), 'genre.db'),
-      version: 1,
-      onCreate: (Database db, int version) {
-        db.execute(
-          'CREATE TABLE $tableName (id TEXT PRIMARY KEY, name TEXT, img TEXT, album TEXT,)',
-        );
-      },
-    );
-  }
-
-  Future insertSong(Songs song) async {
-  await open();
-    await songDB.insert(tableName, song.toMap(),
-        conflictAlgorithm: ConflictAlgorithm.ignore);
-  }
-
-  Future<List<Artists>> getSong() async {
-    await open();
-    final List<Map<String, dynamic>> maps = await songDB.query(
-      'songs',
+      tableName,
     );
 
     return List<Artists>.generate(maps.length, (i) {

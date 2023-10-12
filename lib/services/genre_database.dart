@@ -58,6 +58,5 @@ class GenresDatabase {
       return Genres.fromMap(maps[i]);
     });
   }
-
- 
 }
+

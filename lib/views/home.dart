@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:streamer/services/auth.dart';
 import 'package:streamer/services/provider_service.dart';
 import 'package:streamer/services/spotify.dart';
 import 'package:streamer/utils/constants.dart';
 import 'package:streamer/views/artist_list.dart';
 import 'package:streamer/views/first_launch.dart';
+import 'package:streamer/views/login.dart';
 
 class Home extends StatefulWidget {
   const Home({
@@ -39,6 +41,16 @@ class _HomeState extends State<Home> {
         : callApi(userProvider.user.preferredGenre);
     return Scaffold(
         appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.exit_to_app_outlined),
+            onPressed: () {
+              AuthService().signOut();
+              Navigator.pushAndRemoveUntil(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()),
+                  (route) => false);
+            },
+          ),
           title: Center(child: Text(app_title)),
         ),
         body: Stack(

@@ -8,19 +8,36 @@ import 'package:streamer/views/widgets/loader.dart';
 
 //reusable floatinf action button
 class FloatingButton extends StatelessWidget {
-  final Function() onPress;
-  final IconData icons;
-  const FloatingButton({Key? key, required this.onPress, required this.icons})
-      : super(key: key);
+  const FloatingButton({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return FloatingActionButton(
-        onPressed: onPress,
+        onPressed: () {
+          showDialog(
+              context: context,
+              builder: (context) {
+                return AlertDialog(
+                  title: Center(child: Text('Change Genre')),
+                  content: GenreDropdownMenu(),
+                  actions: [
+                    CustomButton(
+                      text: 'Confirm',
+                      backgroundColor: green,
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                    )
+                  ],
+                );
+              });
+        },
         backgroundColor: white,
         splashColor: blueGrey,
         child: Icon(
-          icons,
+          Icons.menu,
         ));
   }
 }
@@ -64,6 +81,34 @@ class CancelButton extends StatelessWidget {
         },
         child: Text(
           'Cancel',
+          style: TextStyle(color: white),
+        ));
+  }
+}
+
+//reusable cancel button
+class CustomButton extends StatelessWidget {
+  final Color backgroundColor;
+  final Function() onPressed;
+  final String text;
+  const CustomButton(
+      {Key? key,
+      required this.backgroundColor,
+      required this.onPressed,
+      required this.text})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: backgroundColor,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(10))),
+        ),
+        onPressed: onPressed,
+        child: Text(
+          text,
           style: TextStyle(color: white),
         ));
   }
@@ -140,6 +185,7 @@ class _GenreDropdownMenuState extends State<GenreDropdownMenu> {
   var selectedGenre;
   change(val) {
     setState(() {
+
       selectedGenre = val;
     });
   }
@@ -171,9 +217,10 @@ class _GenreDropdownMenuState extends State<GenreDropdownMenu> {
                       ))
                   .toList(),
               value:
-                  selectedGenre, //userProvider.user.preferredGenre.toString(),
+                  selectedGenre, 
               onChanged: (String? newValue) {
                 setState(() {
+            
                   userProvider.updatePreferredGenre(newValue!);
                   selectedGenre = newValue;
                 });

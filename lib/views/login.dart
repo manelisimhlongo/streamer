@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:streamer/services/auth.dart';
@@ -9,8 +10,9 @@ import 'package:streamer/views/widgets/text_fields.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginScreen extends StatefulWidget {
-
-  const LoginScreen({super.key, });
+  const LoginScreen({
+    super.key,
+  });
 
   @override
   State<LoginScreen> createState() => _LoginScreenState();
@@ -112,7 +114,7 @@ class _LoginScreenState extends State<LoginScreen> {
       backgroundColor: white,
       resizeToAvoidBottomInset: true,
       body: FirebaseAuth.instance.currentUser?.uid != null
-          ? Home( )
+          ? Home()
           : SafeArea(
               bottom: false,
               child: loadingBallAppear
@@ -133,8 +135,11 @@ class _LoginScreenState extends State<LoginScreen> {
                                   children: [
                                     SizedBox(height: 48),
                                     Center(
-                                      child: Icon(Icons.flutter_dash_outlined,
-                                          size: 80, color: black),
+                                      child: Image.network(
+                                        logo,
+                                        height: 200,
+                                        width: 200,
+                                      ),
                                     ),
                                     welcomeText(),
                                     SizedBox(height: 24),
